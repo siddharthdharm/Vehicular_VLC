@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
-import java.lang.Math.*;
+// import java.lang.Math.*;
 
 class Vehicle {
 	float x,y,speed;
@@ -18,6 +18,28 @@ class Vehicle {
 }
 
 public class Simulator {
+	
+	public static float LambertianOrder(float phi_12) {
+		
+		return (float) -(Math.log(2)/Math.log(Math.cos(phi_12)));
+
+	}
+
+	public static float ReceiverOpticsGain(float n, float psi_con) {
+		
+		return (float) (Math.pow(n,2) / Math.sin(Math.pow(psi_con,2)));
+
+	}
+
+	public static float ChannelGain(Vehicle v1, Vehicle v2, float d, float n, float phi_12, float psi_con) {
+		
+		float incidence_angle, radiance_angle, ml;
+
+		ml = LambertianOrder(phi_12);
+		rog = ReceiverOpticsGain(n,psi_con);
+		return (float) ( ((ml + 1) / (2 * 3.142 * Math.pow(d,2))) * Math.pow(Math.cos(radiance_angle),ml) * ts * g * rog * Math.cos(incidence_angle) );
+			
+	}
 
 	public static void main(String[] args) throws IOException {
 
@@ -30,7 +52,6 @@ public class Simulator {
 		y = Float.valueOf(reader.readLine()).floatValue();
 		System.out.println("Enter the speed of first vehicle (in SI units)");
 		speed = Float.valueOf(reader.readLine()).floatValue();
-
 		Vehicle v1 = new Vehicle(x,y,speed);
 
 		System.out.println("Enter the x co-ordinate of second vehicle (in SI units)");
@@ -39,11 +60,16 @@ public class Simulator {
 		y = Float.valueOf(reader.readLine()).floatValue();
 		System.out.println("Enter the speed of second vehicle (in SI units)");
 		speed = Float.valueOf(reader.readLine()).floatValue();
-
 		Vehicle v2 = new Vehicle(x,y,speed);
+		
+		float dist = v1.distance(v1,v2);
 
-		if(v1.distance(v1,v2) > 101.0 || v1.distance(v1,v2) < 1.5)
+		if(dist > 101.0 || dist < 1.5)
 			System.out.println("VLC not possible.");
+
+		System.out.println(ChannelGain(v1,v2,dist,1,2));
+
+
         
         // System.out.println(v1.x);
         // System.out.println(v2.y);
