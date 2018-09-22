@@ -32,7 +32,7 @@ public class Simulator {
 
 	public static float ChannelGain(Vehicle v1, Vehicle v2, float d, float n, float phi_12, float psi_con) {
 		
-		float incidence_angle, radiance_angle, ml;
+		float incidence_angle = 0, radiance_angle = 0, ml, rog, ts = 1, g = 1;
 
 		ml = LambertianOrder(phi_12);
 		rog = ReceiverOpticsGain(n,psi_con);
