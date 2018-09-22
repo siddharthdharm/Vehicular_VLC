@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
-// import java.lang.Math.*;
 
 class Vehicle {
 	float x,y,speed;
@@ -67,7 +66,7 @@ public class Simulator {
 		if(dist > 101.0 || dist < 1.5)
 			System.out.println("VLC not possible.");
 
-		System.out.println(ChannelGain(v1,v2,dist,1,2));
+		System.out.println(ChannelGain(v1,v2,dist,1,2,3));
 
 
         
